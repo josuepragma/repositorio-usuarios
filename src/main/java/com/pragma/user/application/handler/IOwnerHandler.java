@@ -11,9 +11,9 @@ public interface IOwnerHandler {
 
     List<OwnerResponseDto> getAllOwners();
 
-    OwnerResponseDto getOwner(String name);
+    OwnerResponseDto getOwnerById(Integer id);
 
-    void updateOwner(OwnerRequestDto ownerRequestDto);
+    void updateOwner(OwnerRequestDto ownerRequestDto, Integer id);
 
-    void deleteOwner(String name);
+    void deleteOwnerById(Integer id);
 }

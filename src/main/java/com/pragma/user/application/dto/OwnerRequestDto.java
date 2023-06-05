@@ -1,6 +1,5 @@
 package com.pragma.user.application.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pragma.user.infrastructure.constraint.BirthDate;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +25,7 @@ public class OwnerRequestDto {
     private String documentNumber;
 
     @NotEmpty(message = "PHONE field is required.")
-    @Pattern(regexp = "^\\+\\d*$", message = "PHONE field must be only numbers, except at the begging")
+    @Pattern(regexp = "^\\+?\\d*$", message = "Invalid PHONE format")
     @Size(max = 13, message = "PHONE field must be have 13 digits maximum")
     private String phone;
 

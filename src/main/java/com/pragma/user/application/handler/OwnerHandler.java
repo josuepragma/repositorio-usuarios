@@ -23,8 +23,8 @@ public class OwnerHandler implements IOwnerHandler {
 
     private final IUserServicePort userServicePort;
     private final IRoleServicePort roleServicePort;
-    private final IOwnerRequestMapper userRequestMapper;
-    private final IOwnerResponseMapper userResponseMapper;
+    private final IOwnerRequestMapper ownerRequestMapper;
+    private final IOwnerResponseMapper ownerResponseMapper;
 
     @Override
     public void saveOwner(OwnerRequestDto ownerRequestDto) {
@@ -32,7 +32,7 @@ public class OwnerHandler implements IOwnerHandler {
         String roleName = "Propietario";
 
         Role role = roleServicePort.getRoleByName(roleName);
-        User user = userRequestMapper.toUser(ownerRequestDto);
+        User user = ownerRequestMapper.toUser(ownerRequestDto);
         user.setIdRole(role.getId());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
@@ -41,36 +41,36 @@ public class OwnerHandler implements IOwnerHandler {
 
     @Override
     public List<OwnerResponseDto> getAllOwners() {
-        return userResponseMapper.toResponseList(userServicePort.getAllUsers(), roleServicePort.getAllRoles());
+        return ownerResponseMapper.toResponseList(userServicePort.getAllUsers(), roleServicePort.getAllRoles());
     }
 
     @Override
-    public OwnerResponseDto getOwner(String name) {
-        User user = userServicePort.getUserByName(name);
+    public OwnerResponseDto getOwnerById(Integer id) {
+        User user = userServicePort.getUserById(id);
         Role role = roleServicePort.getRoleById(user.getIdRole());
 
-        return userResponseMapper.toResponse(user, role);
+        return ownerResponseMapper.toResponse(user, role);
     }
 
     @Override
-    public void updateOwner(OwnerRequestDto ownerRequestDto) {
-        User oldUser = userServicePort.getUserByName(ownerRequestDto.getName());
-        Role newRole = userRequestMapper.toRole(ownerRequestDto);
-        newRole.setId(oldUser.getId());
-        roleServicePort.updateRole(newRole);
+    public void updateOwner(OwnerRequestDto ownerRequestDto, Integer id) {
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-        User newUser = userRequestMapper.toUser(ownerRequestDto);
-        newUser.setId(oldUser.getId());
-        newUser.setIdRole(oldUser.getIdRole());
+        User modifiedUser = userServicePort.getUserById(id);
+        modifiedUser.setName(ownerRequestDto.getName());
+        modifiedUser.setSurname(ownerRequestDto.getSurname());
+        modifiedUser.setDocumentNumber(ownerRequestDto.getDocumentNumber());
+        modifiedUser.setBirthdate(ownerRequestDto.getBirthdate());
+        modifiedUser.setPhone(ownerRequestDto.getPhone());
+        modifiedUser.setEmail(ownerRequestDto.getEmail());
+        modifiedUser.setPassword(passwordEncoder.encode(ownerRequestDto.getPassword()));
+        modifiedUser.setIdRole(2);
 
-        userServicePort.updateUser(newUser);
+        userServicePort.updateUser(modifiedUser);
     }
 
     @Override
-    public void deleteOwner(String name) {
-        User user = userServicePort.getUserByName(name);
-        roleServicePort.deleteRole(user.getIdRole());
-
-        userServicePort.deleteUserByName(name);
+    public void deleteOwnerById(Integer id) {
+        userServicePort.deleteUserById(id);
     }
 }

@@ -25,19 +25,21 @@ public class RoleJpaAdapter implements IRolePersistencePort {
     public List<Role> getAllRoles() {
         List<RoleEntity> roleEntityList = roleRepository.findAll();
         if (roleEntityList.isEmpty()) {
-            throw new RoleNotFoundException();
+            throw new RoleNotFoundException("Role Not Found Exception");
         }
         return roleEntityMapper.toRoleList(roleEntityList);
     }
 
     @Override
     public Role getRoleById(Integer roleId) {
-        return roleEntityMapper.toRole(roleRepository.findById(roleId).orElseThrow(RoleNotFoundException::new));
+        return roleEntityMapper.toRole(roleRepository.findById(roleId)
+                .orElseThrow(() -> new RoleNotFoundException("Role Not Found Exception")));
     }
 
     @Override
     public Role getRoleByName(String roleName) {
-        return roleEntityMapper.toRole(roleRepository.findByName(roleName).orElseThrow(RoleNotFoundException::new));
+        return roleEntityMapper.toRole(roleRepository.findByName(roleName)
+                .orElseThrow(() -> new RoleNotFoundException("Role Not Found Exception")));
     }
 
     @Override

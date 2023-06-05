@@ -24,13 +24,8 @@ public class UserUseCase implements IUserServicePort {
     }
 
     @Override
-    public User getUserByName(String name) {
-        return userPersistencePort.getUserByName(name);
-    }
-
-    @Override
-    public User getUserByDocumentNumber(String documentNumber) {
-        return userPersistencePort.getUserByDocumentNumber(documentNumber);
+    public User getUserById(Integer id) {
+        return userPersistencePort.getUserById(id);
     }
 
     @Override
@@ -39,12 +34,7 @@ public class UserUseCase implements IUserServicePort {
     }
 
     @Override
-    public void deleteUserByName(String name) {
-        userPersistencePort.deleteUserByName(name);
-    }
-
-    @Override
-    public void deleteUserByDocumentNumber(String documentNumber) {
-        userPersistencePort.deleteUserByDocumentNumber(documentNumber);
+    public void deleteUserById(Integer id) {
+        userPersistencePort.deleteUserById(id);
     }
 }

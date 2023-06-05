@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface IUserRepository extends JpaRepository<UserEntity, Integer> {
-    Optional<UserEntity> findByName(String name);
 
-    void deleteByName(String name);
+    Optional<UserEntity> findByDocumentNumber(String documentNumber);
+
 }

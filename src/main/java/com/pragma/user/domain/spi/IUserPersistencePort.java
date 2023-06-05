@@ -9,13 +9,9 @@ public interface IUserPersistencePort {
 
     List<User> getAllUsers();
 
-    User getUserByName(String name);
-
-    User getUserByDocumentNumber(String documentNumber);
+    User getUserById(Integer id);
 
     void updateUser(User user);
 
-    void deleteUserByName(String name);
-
-    void deleteUserByDocumentNumber(String documentNumber);
+    void deleteUserById(Integer id);
 }

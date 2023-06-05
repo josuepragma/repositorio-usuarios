@@ -29,20 +29,21 @@ public class UserRestController {
         return ResponseEntity.ok(ownerHandler.getAllOwners());
     }
 
-    @GetMapping("/{name}")
-    public ResponseEntity<OwnerResponseDto> getUserByName(@PathVariable(name = "name") String name) {
-        return ResponseEntity.ok(ownerHandler.getOwner(name));
+    @GetMapping("/{id}")
+    public ResponseEntity<OwnerResponseDto> getUserByName(@PathVariable(name = "id") Integer id) {
+        return ResponseEntity.ok(ownerHandler.getOwnerById(id));
     }
 
-    @PutMapping("/")
-    public ResponseEntity<Void> updateUser(@RequestBody OwnerRequestDto ownerRequestDto) {
-        ownerHandler.updateOwner(ownerRequestDto);
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateUser(@Valid @RequestBody OwnerRequestDto ownerRequestDto,
+                                           @PathVariable(name = "id") Integer id) {
+        ownerHandler.updateOwner(ownerRequestDto, id);
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/{name}")
-    public ResponseEntity<Void> deleteUser(@PathVariable String name) {
-        ownerHandler.deleteOwner(name);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
+        ownerHandler.deleteOwnerById(id);
         return ResponseEntity.noContent().build();
     }
 }

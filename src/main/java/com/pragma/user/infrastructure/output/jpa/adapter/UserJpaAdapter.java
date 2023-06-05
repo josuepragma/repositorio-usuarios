@@ -20,8 +20,8 @@ public class UserJpaAdapter implements IUserPersistencePort {
 
     @Override
     public void saveUser(User user) {
-        if (userRepository.findByName(user.getName()).isPresent()) {
-            throw new UserAlreadyExistsException();
+        if (userRepository.findByDocumentNumber(user.getDocumentNumber()).isPresent()) {
+            throw new UserAlreadyExistsException("User already exists with document N°: " + user.getDocumentNumber());
         }
         userRepository.save(userEntityMapper.toEntity(user));
     }
@@ -30,20 +30,15 @@ public class UserJpaAdapter implements IUserPersistencePort {
     public List<User> getAllUsers() {
         List<UserEntity> userEntityList = userRepository.findAll();
         if (userEntityList.isEmpty()) {
-            throw new NoDataFoundException();
+            throw new NoDataFoundException("No Data Found Exception");
         }
         return userEntityMapper.toUserList(userEntityList);
     }
 
     @Override
-    public User getUserByName(String name) {
-        return userEntityMapper.toUser(userRepository.findByName(name)
-                .orElseThrow(UserNotFoundException::new));
-    }
-
-    @Override
-    public User getUserByDocumentNumber(String documentNumber) {
-        return null;
+    public User getUserById(Integer id) {
+        return userEntityMapper.toUser(userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User Not Found for parameter { id = " + id + " }")));
     }
 
     @Override
@@ -52,12 +47,8 @@ public class UserJpaAdapter implements IUserPersistencePort {
     }
 
     @Override
-    public void deleteUserByName(String name) {
-        userRepository.deleteByName(name);
+    public void deleteUserById(Integer id) {
+        userRepository.deleteById(id);
     }
 
-    @Override
-    public void deleteUserByDocumentNumber(String documentNumber) {
-
-    }
 }

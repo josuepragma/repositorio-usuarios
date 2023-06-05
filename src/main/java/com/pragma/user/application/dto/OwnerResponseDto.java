@@ -13,7 +13,7 @@ public class OwnerResponseDto {
     private String surname;
     private String documentNumber;
     private String phone;
-    private Date birthdate;
+    private String birthdate;
     private String email;
     private String password;
     private String role;

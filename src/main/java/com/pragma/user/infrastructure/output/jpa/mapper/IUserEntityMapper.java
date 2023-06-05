@@ -9,8 +9,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        unmappedSourcePolicy = ReportingPolicy.IGNORE
-)
+        unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface IUserEntityMapper {
 
     UserEntity toEntity(User user);
