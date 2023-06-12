@@ -12,7 +12,7 @@ public interface IUserServicePort {
 
     User getUserById(Integer id);
 
-    void updateUser(User user);
+    User getUserByEmail(String email);
 
     void deleteUserById(Integer id);
 

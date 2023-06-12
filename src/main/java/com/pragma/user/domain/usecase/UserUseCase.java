@@ -9,6 +9,7 @@ import java.util.List;
 public class UserUseCase implements IUserServicePort {
 
     private final IUserPersistencePort userPersistencePort;
+
     public UserUseCase(IUserPersistencePort userPersistencePort) {
         this.userPersistencePort = userPersistencePort;
     }
@@ -29,8 +30,8 @@ public class UserUseCase implements IUserServicePort {
     }
 
     @Override
-    public void updateUser(User user) {
-        userPersistencePort.updateUser(user);
+    public User getUserByEmail(String email) {
+        return userPersistencePort.getUserByEmail(email);
     }
 
     @Override

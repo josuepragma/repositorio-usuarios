@@ -1,4 +1,4 @@
-package com.pragma.user.infrastructure.constraint;
+package com.pragma.user.application.validations;
 
 import java.util.Calendar;
 import java.util.Date;

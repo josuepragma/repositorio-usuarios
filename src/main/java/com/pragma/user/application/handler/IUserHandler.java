@@ -1,11 +1,13 @@
 package com.pragma.user.application.handler;
 
+import com.pragma.user.application.dto.LoginRequest;
+import com.pragma.user.application.dto.LoginResponse;
 import com.pragma.user.application.dto.OwnerRequestDto;
 import com.pragma.user.application.dto.OwnerResponseDto;
 
 import java.util.List;
 
-public interface IOwnerHandler {
+public interface IUserHandler {
 
     void saveOwner(OwnerRequestDto ownerRequestDto);
 
@@ -13,7 +15,8 @@ public interface IOwnerHandler {
 
     OwnerResponseDto getOwnerById(Integer id);
 
-    void updateOwner(OwnerRequestDto ownerRequestDto, Integer id);
-
     void deleteOwnerById(Integer id);
+
+    public LoginResponse authenticate(LoginRequest loginRequest);
+
 }

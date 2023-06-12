@@ -1,5 +1,6 @@
 package com.pragma.user.infrastructure.output.jpa.entity;
 
+import com.pragma.user.domain.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +25,12 @@ public class UserEntity {
     String documentNumber;
     String phone;
     Date birthdate;
+
+    @Column(name = "email", unique = true)
     String email;
     String password;
-    Integer idRole;
+
+    @ManyToOne
+    @JoinColumn(name = "id_role")
+    RoleEntity role;
 }

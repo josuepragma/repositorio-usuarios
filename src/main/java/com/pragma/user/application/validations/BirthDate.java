@@ -1,4 +1,4 @@
-package com.pragma.user.infrastructure.constraint;
+package com.pragma.user.application.validations;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.FIELD;

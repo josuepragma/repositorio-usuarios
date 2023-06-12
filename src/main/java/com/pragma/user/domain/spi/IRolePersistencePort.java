@@ -5,7 +5,7 @@ import com.pragma.user.domain.model.Role;
 import java.util.List;
 
 public interface IRolePersistencePort {
-    Role saveRole(Role role);
+    void saveRole(Role role);
 
     List<Role> getAllRoles();
 

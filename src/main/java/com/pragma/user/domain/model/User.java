@@ -20,5 +20,5 @@ public class User {
     Date birthdate;
     String email;
     String password;
-    Integer idRole;
+    Role role;
 }

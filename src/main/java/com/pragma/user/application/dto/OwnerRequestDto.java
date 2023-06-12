@@ -1,6 +1,6 @@
 package com.pragma.user.application.dto;
 
-import com.pragma.user.infrastructure.constraint.BirthDate;
+import com.pragma.user.application.validations.BirthDate;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;

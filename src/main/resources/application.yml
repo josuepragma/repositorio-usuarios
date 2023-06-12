@@ -2,10 +2,8 @@ server:
   port: 8090
 
 spring:
-#  datasource:
-#    url: jdbc:mysql://localhost:3306/users?connectionTimeZone=UTC
-#    username: root
-#    password: 1234
+  application:
+    name: user-microservice
   datasource:
     platform: postgres
     url: jdbc:postgresql://localhost:5432/users?serverTimezone=UTC
@@ -17,3 +15,11 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+application:
+  security:
+    jwt:
+      secret-key: SDF89SD9F876556A586E3SDFSD9F87SDFB62SDF987SDF897SD
+      expiration: 86400000 # a day
+      refresh-token:
+        expiration: 604800000 # 7 days
