@@ -23,6 +23,11 @@ public class UserJpaAdapter implements IUserPersistencePort {
         if (userRepository.findByDocumentNumber(user.getDocumentNumber()).isPresent()) {
             throw new UserAlreadyExistsException("User already exists with document N°: " + user.getDocumentNumber());
         }
+
+        if( userRepository.findByEmail(user.getEmail()).isPresent()) {
+            throw new UserAlreadyExistsException("User already exists with email: " + user.getEmail());
+        }
+
         userRepository.save(userEntityMapper.toEntity(user));
     }
 

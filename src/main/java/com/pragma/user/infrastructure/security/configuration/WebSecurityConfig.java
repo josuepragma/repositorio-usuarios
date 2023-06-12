@@ -24,6 +24,11 @@ public class WebSecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
+    private static final String ROLE_ADMIN = "ADMINISTRADOR";
+    private static final String ROLE_OWNER = "PROPIETARIO";
+    private static final String ROLE_EMPLOYEE = "EMPLEADO";
+    private static final String ROLE_CLIENT = "CLIENTE";
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
@@ -39,9 +44,10 @@ public class WebSecurityConfig {
                         "/swagger-ui/**",
                         "/webjars/**",
                         "/swagger-ui.html").permitAll()
-                .antMatchers(HttpMethod.POST, "/user/owner/**").hasRole("ADMINISTRADOR")
-                .antMatchers(HttpMethod.GET, "/user/owner/**").hasAnyRole("ADMINISTRADOR", "PROPIETARIO")
-                .antMatchers(HttpMethod.DELETE, "/user/**").hasRole("ADMINISTRADOR")
+                .antMatchers(HttpMethod.GET, "/user/**").hasAnyRole(ROLE_ADMIN, ROLE_OWNER)
+                .antMatchers(HttpMethod.POST, "/user/owner/**").hasRole(ROLE_ADMIN)
+                .antMatchers(HttpMethod.POST, "/user/employee/**").hasRole(ROLE_OWNER)
+                .antMatchers(HttpMethod.DELETE, "/user/**").hasRole(ROLE_ADMIN)
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()

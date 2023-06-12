@@ -1,4 +1,4 @@
-package com.pragma.user.application.dto;
+package com.pragma.user.application.dto.request;
 
 import com.pragma.user.application.validations.BirthDate;
 import lombok.Getter;

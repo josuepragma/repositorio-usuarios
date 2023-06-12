@@ -1,11 +1,11 @@
-package com.pragma.user.application.dto;
+package com.pragma.user.application.dto.response;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class OwnerResponseDto {
+public class UserResponseDto {
     private Integer id;
     private String name;
     private String surname;
