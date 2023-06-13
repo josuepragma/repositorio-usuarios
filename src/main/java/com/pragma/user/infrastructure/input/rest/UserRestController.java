@@ -1,5 +1,6 @@
 package com.pragma.user.infrastructure.input.rest;
 
+import com.pragma.user.application.dto.request.CustomerRequestDto;
 import com.pragma.user.application.dto.request.EmployeeRequestDto;
 import com.pragma.user.application.dto.request.OwnerRequestDto;
 import com.pragma.user.application.dto.response.UserResponseDto;
@@ -51,6 +52,20 @@ public class UserRestController {
     @PostMapping(value = "/employee/", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> saveEmployee(@Valid @RequestBody EmployeeRequestDto employeeRequestDto) {
         userHandler.saveEmployee(employeeRequestDto);
+
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @Operation(summary = "Save new customer")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "CREATED. Customer created successfully", content = @Content),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST. JSON request is invalid", content = @Content),
+            @ApiResponse(responseCode = "401", description = "UNAUTHORIZED. User is not authorized", content = @Content)
+    })
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PostMapping(value = "/customer/", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> saveCustomer(@Valid @RequestBody CustomerRequestDto customerRequestDto) {
+        userHandler.saveCustomer(customerRequestDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

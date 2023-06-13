@@ -1,10 +1,12 @@
 package com.pragma.user.application.handler;
 
+import com.pragma.user.application.dto.request.CustomerRequestDto;
 import com.pragma.user.application.dto.request.EmployeeRequestDto;
 import com.pragma.user.application.dto.request.LoginRequest;
 import com.pragma.user.application.dto.response.LoginResponse;
 import com.pragma.user.application.dto.request.OwnerRequestDto;
 import com.pragma.user.application.dto.response.UserResponseDto;
+import com.pragma.user.application.mapper.ICustomerRequestMapper;
 import com.pragma.user.application.mapper.IEmployeeRequestMapper;
 import com.pragma.user.application.mapper.IOwnerRequestMapper;
 import com.pragma.user.application.mapper.IUserResponseMapper;
@@ -33,6 +35,7 @@ public class UserHandler implements IUserHandler {
 
     private final IOwnerRequestMapper ownerRequestMapper;
     private final IEmployeeRequestMapper employeeRequestMapper;
+    private final ICustomerRequestMapper clientRequestMapper;
     private final IUserResponseMapper ownerResponseMapper;
 
     private final PasswordEncoder passwordEncoder;
@@ -56,6 +59,19 @@ public class UserHandler implements IUserHandler {
         Role role = roleServicePort.getRoleById(idRole);
 
         User user = employeeRequestMapper.toUser(employeeRequestDto);
+        user.setBirthdate(new Date());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(role);
+
+        userServicePort.saveUser(user);
+    }
+
+    @Override
+    public void saveCustomer(CustomerRequestDto customerRequestDto) {
+        Integer idRole = 4;
+        Role role = roleServicePort.getRoleById(idRole);
+
+        User user = clientRequestMapper.toUser(customerRequestDto);
         user.setBirthdate(new Date());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(role);
